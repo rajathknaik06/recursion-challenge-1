@@ -1,0 +1,39 @@
+""" In a banking system, a security analyst needs to analyze transaction IDs to identify potential fraud patterns. One crucial pattern involves finding the smallest non-zero digit in these transaction IDs. To automate this process, the analyst needs a program that uses the minNonZeroDigitFinder recursive function to determine the smallest non-zero digit in a given transaction ID.
+
+
+
+Your task is to implement this program to help the analyst quickly identify the smallest non-zero digit from a transaction ID.
+
+
+
+Function Specification:
+
+int minNonZeroDigitFinder(int transactionId)
+
+Input format :
+The input consists of a single integer n, representing the transaction ID.
+
+Output format :
+The output displays a single integer, which is the smallest non-zero digit present in the given transaction ID.
+
+"""
+
+def minNonZeroDigitFinder(transaction_id):
+    if transaction_id < 10:
+        return transaction_id if transaction_id > 0 else float('inf')
+    
+    current_digit = transaction_id % 10
+    
+    remaining_min = minNonZeroDigitFinder(transaction_id // 10)
+    
+    if current_digit == 0:
+        return remaining_min
+    else:
+        return min(current_digit, remaining_min)
+
+if __name__ == "__main__":
+    transaction_id = int(input())
+    
+    result = minNonZeroDigitFinder(transaction_id)
+    
+    print(result)
